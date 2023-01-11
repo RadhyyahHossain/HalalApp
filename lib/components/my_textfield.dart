@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:halalapp/constants.dart';
 
 class MyTextField extends StatelessWidget {
   final controller;
@@ -20,11 +21,13 @@ class MyTextField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          enabledBorder: const OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.orange),
+            borderRadius: BorderRadius.all(Radius.circular(kBorderRadius)),
           ),
           fillColor: Colors.grey.shade200,
           filled: true,

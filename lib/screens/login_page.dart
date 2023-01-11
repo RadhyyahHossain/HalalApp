@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/my_textfield.dart';
+import 'package:halalapp/constants.dart';
+
+import '../components/my_button.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -72,26 +75,11 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 30),
 
                 //sign in
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.orange[300],
-                      border: Border.all(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
+                MyButton(
+                  buttonText: "Sign In",
+                  onTap: () {
+                    Navigator.pushNamed(context, "/home");
+                  },
                 ),
                 SizedBox(height: 30),
                 Padding(
