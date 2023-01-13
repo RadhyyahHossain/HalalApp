@@ -12,6 +12,7 @@ class LoginPage extends StatelessWidget {
   final passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  void signInUser() {}
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +78,7 @@ class LoginPage extends StatelessWidget {
                 //sign in
                 MyButton(
                   buttonText: "Sign In",
-                  onTap: () {
-                    Navigator.pushNamed(context, "/home");
-                  },
+                  onTap: signInUser,
                 ),
                 SizedBox(height: 30),
                 Padding(
