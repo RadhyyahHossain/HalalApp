@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:halalapp/screens/onboarding_screen.dart';
 import 'screens/login_page.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+
 void main() {
   runApp(const HomeScreen());
 }
