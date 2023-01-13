@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "833820429264",
+    "project_id": "halalmaps-c7560",
+    "storage_bucket": "halalmaps-c7560.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833820429264:android:ded8dd1cc68b5d84ff47d5",
+        "android_client_info": {
+          "package_name": "com.example.halalapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833820429264-ir0hq2rmraqit7d131dq8n48e4rbn9ub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7mivtP4Nd8NvENK6ZuEoRe9iZe4WP42Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833820429264-ir0hq2rmraqit7d131dq8n48e4rbn9ub.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
