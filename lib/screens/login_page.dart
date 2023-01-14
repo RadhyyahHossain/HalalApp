@@ -16,8 +16,10 @@ class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   void signInUser(BuildContext context) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+      //FirebaseAuth.instance.createUserWithEmailAndPassword(
+      //    email: emailController.text, password: passwordController.text);
     } catch (e) {
       print("--$e");
       ScaffoldMessenger.of(context).showSnackBar(

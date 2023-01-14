@@ -6,6 +6,7 @@ import 'screens/login_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:halalapp/screens/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       initialRoute: "/onboarding",
       routes: {
         "/login": (context) => AuthScreen(),
-        "/home": (context) => HomePage(),
+        "/home": (context) => HomeMainPage(),
         "/onboarding": (context) => OnboardingScreen(),
       },
     );

@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/borough_list.dart';
+import 'package:halalapp/components/bottom_navbar.dart';
+import 'package:halalapp/components/resturants.dart';
 import 'package:halalapp/components/search_box.dart';
 import 'package:halalapp/constants.dart';
+//import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomeMainPage extends StatefulWidget {
+  HomeMainPage({super.key});
+
+  @override
+  State<HomeMainPage> createState() => _HomeMainPageState();
+}
+
+class _HomeMainPageState extends State<HomeMainPage> {
+  List<String> boroughs = [
+    "Bronx",
+    "Manhattan",
+    "Queens",
+    "Brooklyn",
+    "Staten Island"
+  ];
+  int _boroughIndex = 1;
+
+  List<String> rest = ["thai", "lwjf", "nflkf", "ksdbk"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: bottomNavBar(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -33,66 +53,41 @@ class HomePage extends StatelessWidget {
           SearchBox(
             onChanged: (value) {},
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                BoroughNames(
-                  title: "Bronx",
-                  isActive: true,
-                  press: () {},
-                ),
-                BoroughNames(
-                  title: "Manhattan",
-                  press: () {},
-                ),
-                BoroughNames(
-                  title: "Queens",
-                  press: () {},
-                ),
-                BoroughNames(
-                  title: "Brooklyn",
-                  press: () {},
-                ),
-                BoroughNames(
-                  title: "Staten Island",
-                  press: () {},
-                ),
-              ],
+          BoroughPicker(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: rest.length,
+              itemBuilder: (context, index) {
+                return Resturants(
+                  names: rest[index],
+                );
+              },
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 35),
-        height: 75,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, -7),
-                blurRadius: 33,
-                color: Color(0xFF6DAED9).withOpacity(0.18)),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.orange[300],
-                )),
-            IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.map)),
-          ],
+    );
+  }
+
+  AnimatedContainer BoroughPicker() {
+    return AnimatedContainer(
+      duration: Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+      child: Expanded(
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: boroughs.length,
+          itemBuilder: ((context, index) {
+            return BoroughNames(
+              title: boroughs[index],
+              press: () {
+                setState(() {
+                  _boroughIndex = index;
+                });
+              },
+              isActive: index == _boroughIndex,
+            );
+          }),
         ),
       ),
     );
