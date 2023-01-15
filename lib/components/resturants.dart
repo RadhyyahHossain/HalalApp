@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/constants.dart';
 
-class Resturants extends StatelessWidget {
-  final String names;
+class Resturant extends StatefulWidget {
+  const Resturant({super.key});
 
-  const Resturants({
-    Key? key,
-    required this.names,
-  }) : super(key: key);
+  @override
+  State<Resturant> createState() => _ResturantState();
+}
+
+class _ResturantState extends State<Resturant> {
+  List<String> rest = ["thai", "lwjf", "nflkf", "ksdbk"];
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Container(
-        height: 100,
-        color: kPrimaryColor,
-        child: Padding(
-          padding: const EdgeInsets.all(13.0),
-          child: Text(
-            names,
-            textAlign: TextAlign.left,
-            style: TextStyle(fontSize: 20),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {}),
           ),
-        ),
+        ],
       ),
     );
   }

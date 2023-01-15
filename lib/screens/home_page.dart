@@ -23,8 +23,6 @@ class _HomeMainPageState extends State<HomeMainPage> {
   ];
   int _boroughIndex = 1;
 
-  List<String> rest = ["thai", "lwjf", "nflkf", "ksdbk"];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,16 +52,6 @@ class _HomeMainPageState extends State<HomeMainPage> {
             onChanged: (value) {},
           ),
           BoroughPicker(),
-          Expanded(
-            child: ListView.builder(
-              itemCount: rest.length,
-              itemBuilder: (context, index) {
-                return Resturants(
-                  names: rest[index],
-                );
-              },
-            ),
-          ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:halalapp/screens/details_page.dart';
 import 'package:halalapp/screens/home_page.dart';
 import 'package:halalapp/screens/list_screen.dart';
 import 'package:halalapp/screens/login_page.dart';
@@ -16,7 +17,8 @@ class AuthScreen extends StatelessWidget {
         builder: (context, snapshot) {
           //if logged in
           if (snapshot.hasData) {
-            return HomeMainPage();
+            return DetailsScreen();
+            //HomeMainPage();
           } else {
             return LoginPage();
           }

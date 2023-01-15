@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/screens/auth_screen.dart';
+import 'package:halalapp/screens/details_page.dart';
 import 'package:halalapp/screens/home_page.dart';
 import 'package:halalapp/screens/onboarding_screen.dart';
 import 'screens/login_page.dart';
@@ -26,7 +27,8 @@ class HomeScreen extends StatelessWidget {
       initialRoute: "/onboarding",
       routes: {
         "/login": (context) => AuthScreen(),
-        "/home": (context) => HomeMainPage(),
+        "/home": (context) => DetailsScreen(),
+        "/search": (context) => DetailsScreen(),
         "/onboarding": (context) => OnboardingScreen(),
       },
     );
