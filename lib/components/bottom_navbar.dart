@@ -2,10 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:halalapp/constants.dart';
 import 'package:halalapp/screens/details_page.dart';
 
-class bottomNavBar extends StatelessWidget {
-  const bottomNavBar({
+class bottomNavBar extends StatefulWidget {
+  bottomNavBar({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<bottomNavBar> createState() => _bottomNavBarState();
+}
+
+class _bottomNavBarState extends State<bottomNavBar> {
+  String _is_selected = "home";
+
+  void setPage(String pageTapped) {
+    setState(() {
+      _is_selected = pageTapped;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +43,34 @@ class bottomNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setPage("home");
+                Navigator.pushNamed(context, "/home");
+              },
               icon: Icon(
                 Icons.home,
-                color: kPrimaryColor,
+                color: _is_selected == "home" ? kPrimaryColor : Colors.black,
               )),
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.map)),
+          IconButton(
+            onPressed: () {
+              setPage("search");
+              Navigator.pushNamed(context, "/search");
+            },
+            icon: Icon(
+              Icons.search,
+              color: _is_selected == "search" ? kPrimaryColor : Colors.black,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setPage("map");
+              Navigator.pushNamed(context, "/map");
+            },
+            icon: Icon(
+              Icons.map,
+              color: _is_selected == "map" ? kPrimaryColor : Colors.black,
+            ),
+          ),
         ],
       ),
     );

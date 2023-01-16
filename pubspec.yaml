@@ -40,7 +40,7 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
   custom_sliding_segmented_control: ^1.7.3
-  smooth_star_rating: ^1.0.4
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

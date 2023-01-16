@@ -17,7 +17,7 @@ class AuthScreen extends StatelessWidget {
         builder: (context, snapshot) {
           //if logged in
           if (snapshot.hasData) {
-            return DetailsScreen();
+            return HomeMainPage();
             //HomeMainPage();
           } else {
             return LoginPage();

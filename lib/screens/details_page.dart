@@ -1,9 +1,8 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
-
 import 'package:flutter/material.dart';
+import 'package:halalapp/components/image_carousel.dart';
 import 'package:halalapp/constants.dart';
 import 'package:halalapp/screens/home_page.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -21,7 +20,10 @@ class DetailsScreen extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () {
-            HomeMainPage();
+            Navigator.pop(
+              context,
+              //DetailsScreen(builder: (context) => HomeMainPage()),
+            );
           },
         ),
       ),
@@ -40,7 +42,8 @@ class DetailsScreen extends StatelessWidget {
               ),
               child: Column(
                 children: <Widget>[
-                  shopName(name: "Top Thai"),
+                  shopName(boroughLocation: "Manhattan"),
+                  SizedBox(height: 20),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -48,27 +51,33 @@ class DetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "Steak and Fries",
+                              "Top Thai",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             SizedBox(height: 10),
-                            SmoothStarRating(
-                              borderColor: kPrimaryColor,
-                              rating: 4,
+                            Text(
+                              "Rating: 4/5",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.grey[500],
+                              ),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        height: 65,
-                        width: 65,
-                        color: Colors.green,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         child: Text(
-                          "\$29",
+                          "\$",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -78,8 +87,20 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.only(right: 210),
+                    child: Text(
+                      "Address: 1234 yo mom road",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  carouselImage(),
                 ],
               ),
             ),
@@ -89,7 +110,7 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  Row shopName({required String name}) {
+  Row shopName({required String boroughLocation}) {
     return Row(
       children: <Widget>[
         Icon(
@@ -98,7 +119,7 @@ class DetailsScreen extends StatelessWidget {
         ),
         SizedBox(width: 10),
         Text(
-          name,
+          boroughLocation,
           style: TextStyle(
             color: Colors.grey[600],
           ),
