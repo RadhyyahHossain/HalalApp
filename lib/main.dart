@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:halalapp/screens/auth_screen.dart';
+import 'package:halalapp/screens/details_page.dart';
+import 'package:halalapp/screens/home_page.dart';
+import 'package:halalapp/screens/map_screen.dart';
 import 'package:halalapp/screens/onboarding_screen.dart';
 import 'screens/login_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:halalapp/screens/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,10 +27,10 @@ class HomeScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/onboarding",
       routes: {
-        "/login": (context) => LoginPage(),
-        "/home": (context) => Scaffold(
-              body: Center(child: Text("Home")),
-            ),
+        "/login": (context) => AuthScreen(),
+        "/home": (context) => HomeMainPage(),
+        "/search": (context) => DetailsScreen(),
+        "/map": (context) => mapScreen(),
         "/onboarding": (context) => OnboardingScreen(),
       },
     );

@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/my_textfield.dart';
 import 'package:halalapp/constants.dart';
@@ -12,6 +14,23 @@ class LoginPage extends StatelessWidget {
   final passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  void signInUser(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      //FirebaseAuth.instance.createUserWithEmailAndPassword(
+      //    email: emailController.text, password: passwordController.text);
+    } catch (e) {
+      print("--$e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          //behavior: SnackBarBehavior.floating,
+          content: Text(
+              "Oops! There's something wrong with your email or password. Check again!"),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +96,7 @@ class LoginPage extends StatelessWidget {
                 //sign in
                 MyButton(
                   buttonText: "Sign In",
-                  onTap: () {
-                    Navigator.pushNamed(context, "/home");
-                  },
+                  onTap: () => {signInUser(context)},
                 ),
                 SizedBox(height: 30),
                 Padding(
