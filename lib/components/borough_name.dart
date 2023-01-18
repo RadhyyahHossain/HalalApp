@@ -18,7 +18,7 @@ class BoroughNames extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
         child: Column(
           children: <Widget>[
             Text(title,

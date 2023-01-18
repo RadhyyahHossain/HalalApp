@@ -36,7 +36,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
           BoxShadow(
               offset: Offset(0, -7),
               blurRadius: 33,
-              color: Color.fromARGB(255, 232, 181, 161).withOpacity(0.25)),
+              color: Colors.grey.shade100.withOpacity(0.2)),
         ],
       ),
       child: Row(

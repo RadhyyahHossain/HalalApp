@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:halalapp/components/borough_list.dart';
+import 'package:halalapp/components/borough_name.dart';
 import 'package:halalapp/components/bottom_navbar.dart';
+import 'package:halalapp/components/main_resturantList.dart';
 import 'package:halalapp/components/resturants.dart';
 import 'package:halalapp/components/search_box.dart';
 import 'package:halalapp/constants.dart';
@@ -52,31 +53,44 @@ class _HomeMainPageState extends State<HomeMainPage> {
             onChanged: (value) {},
           ),
           BoroughPicker(),
+          Expanded(
+            child: Container(
+              child: ListView(
+                children: <Widget>[
+                  resturantList(),
+                  resturantList(),
+                  resturantList(),
+                  resturantList(),
+                  resturantList()
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  AnimatedContainer BoroughPicker() {
-    return AnimatedContainer(
-      duration: Duration(seconds: 1),
-      curve: Curves.fastOutSlowIn,
-      child: Expanded(
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: boroughs.length,
-          itemBuilder: ((context, index) {
-            return BoroughNames(
-              title: boroughs[index],
-              press: () {
-                setState(() {
-                  _boroughIndex = index;
-                });
-              },
-              isActive: index == _boroughIndex,
-            );
-          }),
-        ),
+  Container BoroughPicker() {
+    return Container(
+      // duration: Duration(seconds: 1),
+      // curve: Curves.fastOutSlowIn,
+      height: 65,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: boroughs.length,
+        itemBuilder: ((context, index) {
+          return BoroughNames(
+            title: boroughs[index],
+            press: () {
+              setState(() {
+                _boroughIndex = index;
+              });
+            },
+            isActive: index == _boroughIndex,
+          );
+        }),
       ),
     );
   }
