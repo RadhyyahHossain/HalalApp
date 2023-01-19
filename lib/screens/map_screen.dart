@@ -1,7 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:halalapp/screens/login_page.dart';
 
 class mapScreen extends StatelessWidget {
-  const mapScreen({super.key});
+  mapScreen({super.key});
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  _signOut() async {
+    await _firebaseAuth.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,9 +16,12 @@ class mapScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
           },
-          child: const Text('Go back!'),
+          child: const Text('sign out'),
         ),
       ),
     );

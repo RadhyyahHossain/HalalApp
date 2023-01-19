@@ -3,13 +3,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/my_textfield.dart';
 import 'package:halalapp/constants.dart';
+import 'package:halalapp/screens/signup_page.dart';
 
 import '../components/my_button.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+  LoginPage({
+    Key? key,
+  }) : super(key: key);
 
   //controllers
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -121,6 +125,37 @@ class LoginPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: 20),
+                //dont have an account? sign up
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account? ",
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    GestureDetector(
+                      child: Text(
+                        "Sign up",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => signUpPage(
+                                    showLoginPage: () {},
+                                  )),
+                        );
+                      },
+                    ),
+                  ],
                 ),
 
                 //google button

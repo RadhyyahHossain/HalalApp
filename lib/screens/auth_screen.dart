@@ -5,6 +5,7 @@ import 'package:halalapp/screens/details_page.dart';
 import 'package:halalapp/screens/home_page.dart';
 import 'package:halalapp/screens/list_screen.dart';
 import 'package:halalapp/screens/login_page.dart';
+import 'package:halalapp/screens/signup_page.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -22,6 +23,8 @@ class AuthScreen extends StatelessWidget {
           } else {
             return LoginPage();
           }
+
+          //if signUpPage.hasData ? HomeMainPage() : signUpPage();
         },
       ),
     );

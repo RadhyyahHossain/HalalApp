@@ -4,6 +4,7 @@ import 'package:halalapp/screens/details_page.dart';
 import 'package:halalapp/screens/home_page.dart';
 import 'package:halalapp/screens/map_screen.dart';
 import 'package:halalapp/screens/onboarding_screen.dart';
+import 'package:halalapp/screens/signup_page.dart';
 import 'screens/login_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -31,6 +32,9 @@ class HomeScreen extends StatelessWidget {
         "/home": (context) => HomeMainPage(),
         "/search": (context) => DetailsScreen(),
         "/map": (context) => mapScreen(),
+        "/signup": (context) => signUpPage(
+              showLoginPage: () {},
+            ),
         "/onboarding": (context) => OnboardingScreen(),
       },
     );
