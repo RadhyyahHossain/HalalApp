@@ -3,38 +3,31 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/my_textfield.dart';
 import 'package:halalapp/constants.dart';
-import 'package:halalapp/screens/home_page.dart';
-import 'package:halalapp/screens/login_page.dart';
+import 'package:halalapp/screens/Authentication/signup_page.dart';
 
-import '../components/my_button.dart';
+import '../../components/my_button.dart';
 
-class signUpPage extends StatefulWidget {
-  final VoidCallback showLoginPage;
-  const signUpPage({
-    Key? key,
-    required this.showLoginPage,
-  }) : super(key: key);
+class LoginPage extends StatefulWidget {
+  final VoidCallback showRegisterPage;
+  LoginPage({required this.showRegisterPage, super.key});
 
   @override
-  State<signUpPage> createState() => _signUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _signUpPageState extends State<signUpPage> {
-  //controllers
+class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  void signUpUser(BuildContext context) async {
+
+  Future signInUser(BuildContext context) async {
     try {
-      await
-          //FirebaseAuth.instance.signInWithEmailAndPassword(
-          //     email: emailController.text, password: passwordController.text);
-          FirebaseAuth.instance.createUserWithEmailAndPassword(
-              email: _emailController.text, password: _passwordController.text);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+      //FirebaseAuth.instance.createUserWithEmailAndPassword(
+      //    email: emailController.text, password: passwordController.text);
     } catch (e) {
-      print("--$e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           //behavior: SnackBarBehavior.floating,
@@ -52,8 +45,6 @@ class _signUpPageState extends State<signUpPage> {
     super.dispose();
   }
 
-  void signUp() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +58,7 @@ class _signUpPageState extends State<signUpPage> {
               children: [
                 //hello
                 Text(
-                  "Sign up",
+                  "Log In",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -97,56 +88,78 @@ class _signUpPageState extends State<signUpPage> {
                     hintText: "Password",
                     obscureText: true),
 
-                SizedBox(height: 20),
+                SizedBox(height: 10),
 
-                MyTextField(
-                  controller: confirmPasswordController,
-                  hintText: "Confirm password",
-                  obscureText: true,
+                //forgot password
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Forgot Password?",
+                        style: TextStyle(color: Colors.grey[700]),
+                      ),
+                    ],
+                  ),
                 ),
 
                 SizedBox(height: 30),
 
-                //sign up
+                //sign in
                 MyButton(
-                  buttonText: "Sign Up",
-                  onTap: signUp,
-                  //() => {
-                  //signUpUser(context),
-                  //Navigator.push(
-                  //context,
-                  //MaterialPageRoute(builder: (context) => HomeMainPage()),
-                  //),
-                  //},
+                  buttonText: "Log In",
+                  onTap: () => {signInUser(context)},
                 ),
                 SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 70.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Text("Or continue with"),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                //dont have an account? sign up
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Already have an account? ",
+                      "Don't have an account? ",
                       style: TextStyle(
                         color: Colors.grey[600],
                       ),
                     ),
                     GestureDetector(
+                      onTap: widget.showRegisterPage,
                       child: Text(
-                        "Log in",
+                        "Sign up",
                         style: TextStyle(
                           color: Colors.blue,
                           decoration: TextDecoration.underline,
                         ),
                       ),
-                      onTap: widget.showLoginPage,
-                      //() {
-                      //Navigator.push(
-                      //context,
-                      //MaterialPageRoute(builder: (context) => LoginPage()),
-                      //);
-                      //},
                     ),
                   ],
                 ),
+
+                //google button
               ],
             ),
           ),

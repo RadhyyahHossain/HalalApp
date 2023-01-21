@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:halalapp/screens/details_page.dart';
-import 'package:halalapp/screens/home_page.dart';
-import 'package:halalapp/screens/list_screen.dart';
-import 'package:halalapp/screens/login_page.dart';
-import 'package:halalapp/screens/signup_page.dart';
+import 'package:halalapp/screens/Authentication/authenticationPage_loginSignup.dart';
+import 'package:halalapp/screens/MainPages/details_page.dart';
+import 'package:halalapp/screens/MainPages/home_page.dart';
+import 'package:halalapp/screens/MainPages/list_screen.dart';
+import 'package:halalapp/screens/Authentication/login_page.dart';
+import 'package:halalapp/screens/Authentication/signup_page.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class AuthScreen extends StatelessWidget {
             return HomeMainPage();
             //HomeMainPage();
           } else {
-            return LoginPage();
+            return AuthenticationPage();
           }
 
           //if signUpPage.hasData ? HomeMainPage() : signUpPage();

@@ -1,13 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:halalapp/screens/login_page.dart';
+import 'package:halalapp/screens/Authentication/authenticationPage_loginSignup.dart';
+import 'package:halalapp/screens/Authentication/login_page.dart';
 
-class mapScreen extends StatelessWidget {
+class mapScreen extends StatefulWidget {
   mapScreen({super.key});
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  _signOut() async {
-    await _firebaseAuth.signOut();
+  @override
+  State<mapScreen> createState() => _mapScreenState();
+}
+
+class _mapScreenState extends State<mapScreen> {
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    print("Signed out");
+    Navigator.pushReplacementNamed(this.context, "/login");
   }
 
   @override
@@ -15,12 +22,7 @@ class mapScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginPage()),
-            );
-          },
+          onPressed: _signOut,
           child: const Text('sign out'),
         ),
       ),

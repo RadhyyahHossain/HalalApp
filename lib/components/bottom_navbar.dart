@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/constants.dart';
-import 'package:halalapp/screens/details_page.dart';
+import 'package:halalapp/screens/MainPages/details_page.dart';
 
 class bottomNavBar extends StatefulWidget {
   bottomNavBar({

@@ -1,3 +1,8 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/borough_name.dart';
 import 'package:halalapp/components/bottom_navbar.dart';
@@ -15,6 +20,26 @@ class HomeMainPage extends StatefulWidget {
 }
 
 class _HomeMainPageState extends State<HomeMainPage> {
+  User? user = FirebaseAuth.instance.currentUser;
+//RESTURANT ID
+  List<String> docIDs = [];
+
+  //get info
+  Future getDocId() async {
+    await FirebaseFirestore.instance.collection('resturants').get().then(
+          (snapshot) => snapshot.docs.forEach((document) {
+            print(document.reference);
+            docIDs.add(document.reference.id);
+          }),
+        );
+  }
+
+  @override
+  void initState() {
+    getDocId();
+    super.initState();
+  }
+
   List<String> boroughs = [
     "Bronx",
     "Manhattan",
@@ -54,16 +79,19 @@ class _HomeMainPageState extends State<HomeMainPage> {
           ),
           BoroughPicker(),
           Expanded(
-            child: Container(
-              child: ListView(
-                children: <Widget>[
-                  resturantList(),
-                  resturantList(),
-                  resturantList(),
-                  resturantList(),
-                  resturantList()
-                ],
-              ),
+            child: FutureBuilder(
+              future: getDocId(),
+              builder: (context, snapshot) {
+                return ListView(
+                  children: <Widget>[
+                    resturantList(),
+                    resturantList(),
+                    resturantList(),
+                    resturantList(),
+                    resturantList()
+                  ],
+                );
+              },
             ),
           ),
         ],

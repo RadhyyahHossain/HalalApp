@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/image_carousel.dart';
 import 'package:halalapp/constants.dart';
-import 'package:halalapp/screens/home_page.dart';
+import 'package:halalapp/screens/MainPages/home_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class DetailsScreen extends StatelessWidget {
