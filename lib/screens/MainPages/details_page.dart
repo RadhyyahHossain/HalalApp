@@ -64,7 +64,16 @@ class DetailsScreen extends StatelessWidget {
                               "Rating: ${currentRes.rating}",
                               style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.grey[500],
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              currentRes.address,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 16,
                               ),
                             ),
                           ],
@@ -90,17 +99,6 @@ class DetailsScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 20),
-                  Container(
-                    padding: EdgeInsets.only(right: 210),
-                    child: Text(
-                      currentRes.address,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
                   SizedBox(height: 50),
                   carouselImage(),
                 ],
