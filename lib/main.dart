@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:halalapp/screens/Authentication/auth_screen.dart';
 import 'package:halalapp/screens/MainPages/details_page.dart';
 import 'package:halalapp/screens/MainPages/home_page.dart';
-import 'package:halalapp/screens/map_screen.dart';
+import 'package:halalapp/screens/MainPages/map_screen.dart';
 import 'package:halalapp/screens/Authentication/onboarding_screen.dart';
 import 'package:halalapp/screens/Authentication/signup_page.dart';
 import 'screens/Authentication/login_page.dart';

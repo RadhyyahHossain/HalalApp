@@ -55,12 +55,18 @@ class ResturantCard extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: AspectRatio(
                     aspectRatio: 1 / 1,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        "assets/burger.jpg",
-                        fit: BoxFit.cover,
-                      ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                res.image,
+                              ),
+                              fit: BoxFit.cover)),
+                      // child: Image.network(
+                      //   res.image,
+                      //   fit: BoxFit.cover,
+                      // ),
                     ),
                   ),
                 ),
@@ -92,14 +98,7 @@ class ResturantCard extends StatelessWidget {
                         height: 15,
                       ),
                       Text(
-                        res.price.toString(),
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "\$\$",
+                        res.price,
                         style: TextStyle(
                           color: Colors.green,
                         ),
