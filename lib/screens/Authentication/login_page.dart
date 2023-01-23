@@ -3,25 +3,31 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/my_textfield.dart';
 import 'package:halalapp/constants.dart';
+import 'package:halalapp/screens/Authentication/signup_page.dart';
 
-import '../components/my_button.dart';
+import '../../components/my_button.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  final VoidCallback showRegisterPage;
+  LoginPage({required this.showRegisterPage, super.key});
 
-  //controllers
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  void signInUser(BuildContext context) async {
+
+  Future signInUser(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
+          email: _emailController.text, password: _passwordController.text);
       //FirebaseAuth.instance.createUserWithEmailAndPassword(
       //    email: emailController.text, password: passwordController.text);
     } catch (e) {
-      print("--$e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           //behavior: SnackBarBehavior.floating,
@@ -30,6 +36,13 @@ class LoginPage extends StatelessWidget {
         ),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -45,7 +58,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 //hello
                 Text(
-                  "Sign In",
+                  "Log In",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -62,7 +75,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 45),
                 //email text field
                 MyTextField(
-                    controller: emailController,
+                    controller: _emailController,
                     hintText: "Email",
                     obscureText: false),
 
@@ -71,7 +84,7 @@ class LoginPage extends StatelessWidget {
                 //password
 
                 MyTextField(
-                    controller: passwordController,
+                    controller: _passwordController,
                     hintText: "Password",
                     obscureText: true),
 
@@ -95,7 +108,7 @@ class LoginPage extends StatelessWidget {
 
                 //sign in
                 MyButton(
-                  buttonText: "Sign In",
+                  buttonText: "Log In",
                   onTap: () => {signInUser(context)},
                 ),
                 SizedBox(height: 30),
@@ -121,6 +134,29 @@ class LoginPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: 20),
+                //dont have an account? sign up
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account? ",
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: widget.showRegisterPage,
+                      child: Text(
+                        "Sign up",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
                 //google button

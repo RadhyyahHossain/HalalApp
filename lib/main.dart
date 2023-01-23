@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:halalapp/screens/auth_screen.dart';
-import 'package:halalapp/screens/details_page.dart';
-import 'package:halalapp/screens/home_page.dart';
+import 'package:halalapp/screens/Authentication/auth_screen.dart';
+import 'package:halalapp/screens/MainPages/details_page.dart';
+import 'package:halalapp/screens/MainPages/home_page.dart';
 import 'package:halalapp/screens/map_screen.dart';
-import 'package:halalapp/screens/onboarding_screen.dart';
-import 'screens/login_page.dart';
+import 'package:halalapp/screens/Authentication/onboarding_screen.dart';
+import 'package:halalapp/screens/Authentication/signup_page.dart';
+import 'screens/Authentication/login_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:halalapp/screens/home_page.dart';
+import 'package:halalapp/screens/MainPages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,8 +30,11 @@ class HomeScreen extends StatelessWidget {
       routes: {
         "/login": (context) => AuthScreen(),
         "/home": (context) => HomeMainPage(),
-        "/search": (context) => DetailsScreen(),
+        "/search": (context) => Scaffold(),
         "/map": (context) => mapScreen(),
+        "/signup": (context) => signUpPage(
+              showLoginPage: () {},
+            ),
         "/onboarding": (context) => OnboardingScreen(),
       },
     );

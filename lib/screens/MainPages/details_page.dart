@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:halalapp/components/Helpers/resturant.dart';
 import 'package:halalapp/components/image_carousel.dart';
 import 'package:halalapp/constants.dart';
-import 'package:halalapp/screens/home_page.dart';
+import 'package:halalapp/screens/MainPages/home_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+  Resturant currentRes;
+  DetailsScreen({super.key, required this.currentRes});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class DetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "Top Thai",
+                              currentRes.name,
                               style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -59,7 +61,7 @@ class DetailsScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              "Rating: 4/5",
+                              "Rating: ${currentRes.rating}",
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.grey[500],
@@ -76,7 +78,7 @@ class DetailsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          "\$",
+                          "\$ ${currentRes.price}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -91,7 +93,7 @@ class DetailsScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(right: 210),
                     child: Text(
-                      "Address: 1234 yo mom road",
+                      currentRes.address,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.grey[800],
