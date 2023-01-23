@@ -31,10 +31,14 @@ class _HomeMainPageState extends State<HomeMainPage> {
             Map<String, dynamic> myData = document.data();
 
             resurants.add(Resturant(
-                name: myData['name'],
-                address: myData['address'],
-                price: myData['price'],
-                rating: myData['rating']));
+              name: myData['name'],
+              address: myData['address'],
+              price: myData['price'],
+              rating: myData['rating'],
+              image: myData['image'],
+              description: myData['description'],
+              borough: myData['borough'],
+            ));
           }),
         );
   }

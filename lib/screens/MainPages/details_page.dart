@@ -44,7 +44,7 @@ class DetailsScreen extends StatelessWidget {
               ),
               child: Column(
                 children: <Widget>[
-                  shopName(boroughLocation: "Manhattan"),
+                  shopName(boroughLocation: currentRes.borough),
                   SizedBox(height: 20),
                   Row(
                     children: <Widget>[
@@ -64,7 +64,16 @@ class DetailsScreen extends StatelessWidget {
                               "Rating: ${currentRes.rating}",
                               style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.grey[500],
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              currentRes.address,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 16,
                               ),
                             ),
                           ],
@@ -78,7 +87,7 @@ class DetailsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          "\$ ${currentRes.price}",
+                          currentRes.price,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -89,20 +98,33 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  //SizedBox(height: 70),
+                  //carouselImage(),
+                  SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Container(
+                        child: Text(
+                          "Description:",
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
                   Container(
-                    padding: EdgeInsets.only(right: 210),
-                    child: Text(
-                      currentRes.address,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 16,
+                    child: Expanded(
+                      child: Text(
+                        currentRes.description,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 50),
-                  carouselImage(),
                 ],
               ),
             ),
