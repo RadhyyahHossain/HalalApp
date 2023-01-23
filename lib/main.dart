@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/screens/Authentication/auth_screen.dart';
+import 'package:halalapp/screens/MainPages/better_detailsPage.dart';
 import 'package:halalapp/screens/MainPages/details_page.dart';
 import 'package:halalapp/screens/MainPages/home_page.dart';
 import 'package:halalapp/screens/MainPages/map_screen.dart';
@@ -31,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         "/login": (context) => AuthScreen(),
         "/home": (context) => HomeMainPage(),
         "/search": (context) => Scaffold(),
-        "/map": (context) => mapScreen(),
+        "/map": (context) => BetterDetailsPage(),
         "/signup": (context) => signUpPage(
               showLoginPage: () {},
             ),
