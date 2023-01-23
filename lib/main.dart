@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
       routes: {
         "/login": (context) => AuthScreen(),
         "/home": (context) => HomeMainPage(),
-        "/search": (context) => DetailsScreen(),
+        "/search": (context) => Scaffold(),
         "/map": (context) => mapScreen(),
         "/signup": (context) => signUpPage(
               showLoginPage: () {},
