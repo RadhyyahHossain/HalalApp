@@ -5,45 +5,38 @@ import 'package:halalapp/constants.dart';
 import 'package:halalapp/screens/MainPages/home_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class DetailsScreen extends StatelessWidget {
+class BetterDetailsPage extends StatelessWidget {
   Resturant currentRes;
-  DetailsScreen({super.key, required this.currentRes});
+
+  BetterDetailsPage({super.key, required this.currentRes});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: zPrimaryColor,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: zPrimaryColor,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(
-              context,
-              //DetailsScreen(builder: (context) => HomeMainPage()),
-            );
-          },
-        ),
-      ),
-      body: Column(
-        children: <Widget>[
-          SizedBox(height: 150),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: kPrimaryColor,
+            expandedHeight: 200,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  Image.network(
+                    currentRes.image,
+                    fit: BoxFit.cover,
+                  ),
+                ],
               ),
+            ),
+          ),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: <Widget>[
+                  SizedBox(height: 20),
                   shopName(boroughLocation: currentRes.borough),
                   SizedBox(height: 20),
                   Row(
@@ -128,7 +121,7 @@ class DetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );
@@ -139,7 +132,7 @@ class DetailsScreen extends StatelessWidget {
       children: <Widget>[
         Icon(
           Icons.location_on,
-          color: Colors.grey[400],
+          color: Colors.grey[500],
         ),
         SizedBox(width: 10),
         Text(
