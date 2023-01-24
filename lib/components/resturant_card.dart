@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/Helpers/resturant.dart';
 import 'package:halalapp/constants.dart';
-import 'package:halalapp/screens/MainPages/details_page.dart';
+import 'package:halalapp/screens/MainPages/better_detailsPage.dart';
 
 class ResturantCard extends StatelessWidget {
   Resturant res;
@@ -18,7 +18,7 @@ class ResturantCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (BuildContext context) => DetailsScreen(
+              builder: (BuildContext context) => BetterDetailsPage(
                 currentRes: this.res,
               ),
             ));
@@ -57,12 +57,14 @@ class ResturantCard extends StatelessWidget {
                     aspectRatio: 1 / 1,
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                res.image,
-                              ),
-                              fit: BoxFit.cover)),
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            res.image,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       // child: Image.network(
                       //   res.image,
                       //   fit: BoxFit.cover,
