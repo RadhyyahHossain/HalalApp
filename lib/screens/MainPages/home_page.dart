@@ -6,7 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/Helpers/resturant.dart';
 import 'package:halalapp/components/borough_name.dart';
-import 'package:halalapp/components/bottom_navbar.dart';
 import 'package:halalapp/components/resturant_card.dart';
 import 'package:halalapp/components/search_box.dart';
 import 'package:halalapp/constants.dart';
@@ -62,7 +61,6 @@ class _HomeMainPageState extends State<HomeMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: bottomNavBar(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
