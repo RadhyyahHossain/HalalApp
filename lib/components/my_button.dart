@@ -22,7 +22,7 @@ class MyButton extends StatelessWidget {
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: kPrimaryColor,
-            border: Border.all(color: Colors.orange),
+            border: Border.all(color: Colors.red),
             borderRadius: BorderRadius.circular(kBorderRadius),
           ),
           child: Center(
