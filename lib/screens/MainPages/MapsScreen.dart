@@ -3,40 +3,47 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:halalapp/components/Helpers/resturant.dart';
 import 'package:halalapp/constants.dart';
 
-const LatLng currentLocation = LatLng(40.8448, 73.8648);
-
 class MapsScreen extends StatefulWidget {
-  const MapsScreen({super.key});
+  MapsScreen({super.key});
 
   @override
   State<MapsScreen> createState() => _MapsScreenState();
 }
 
 class _MapsScreenState extends State<MapsScreen> {
-  //final Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
-  late GoogleMapController mapController;
-  Map<String, Marker> _markers = {};
+  static const LatLng curLocation = const LatLng(37.33500926, -122.03272188);
+  static const LatLng destination = const LatLng(37.33429383, -122.06600055);
 
-  static LatLng _curLocation = const LatLng(37.33500926, -122.03272188);
-  static LatLng _destination = const LatLng(37.33429383, -122.06600055);
+  List<LatLng> polylineCoordinates = [];
+  //LocationData? currentLocation;
 
-  //List<LatLng> polylineCoordinates = [];
+  void getPolyPoints() async {
+    PolylinePoints polylinePoints = PolylinePoints();
 
-  // void getPolyPoints() async {
-  //   PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      apiKey,
+      PointLatLng(curLocation.latitude, curLocation.longitude),
+      PointLatLng(destination.latitude, destination.longitude),
+    );
+    if (result.points.isNotEmpty) {
+      result.points.forEach(
+        (PointLatLng point) => polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        ),
+      );
+      setState(() {});
+    }
+  }
 
-  //   PolylineResult result = polylinePoints.getRouteBetweenCoordinates(
-  //     googleApiKey,
-  //     PointLatLng(currentLocation.latitude, currentLocation.longitude),
-  //     PointLatLng(destination.latitude, destination.longitude),
-  //   );
-  // }
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  @override
+  void initState() {
+    getPolyPoints();
+    super.initState();
   }
 
   @override
@@ -55,21 +62,33 @@ class _MapsScreenState extends State<MapsScreen> {
         ),
       ),
       body: GoogleMap(
-        onMapCreated: (controller) {
-          mapController = controller;
-        },
         initialCameraPosition: CameraPosition(
-          target: _curLocation,
-          zoom: 13.5,
+          target: curLocation,
+          zoom: 13,
         ),
+        polylines: {
+          Polyline(
+            polylineId: PolylineId("route"),
+            points: polylineCoordinates,
+            color: Colors.red.shade400,
+            width: 6,
+          )
+        },
         markers: {
           Marker(
             markerId: MarkerId("currentPin"),
-            position: _curLocation,
+            position: curLocation,
+            infoWindow: InfoWindow(
+              title: "Me",
+            ),
           ),
           Marker(
             markerId: MarkerId("destinationPin"),
-            position: _destination,
+            position: destination,
+            infoWindow: InfoWindow(
+              title: "current res title",
+              snippet: "address",
+            ),
           ),
         },
       ),
