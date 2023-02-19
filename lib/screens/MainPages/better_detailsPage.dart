@@ -54,7 +54,7 @@ class BetterDetailsPage extends StatelessWidget {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              "Rating: ${currentRes.rating}",
+                              "Phone Number: ${currentRes.phoneNumber}",
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.grey[600],

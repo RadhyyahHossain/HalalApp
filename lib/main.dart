@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:halalapp/screens/Authentication/auth_screen.dart';
+import 'package:halalapp/screens/MainPages/MapScreen.dart';
 import 'package:halalapp/screens/MainPages/better_detailsPage.dart';
 import 'package:halalapp/screens/MainPages/home_page.dart';
 import 'package:halalapp/screens/MainPages/map_screen.dart';
@@ -27,15 +28,23 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/home",
-      routes: {
-        "/login": (context) => AuthScreen(),
-        "/home": (context) => ScreenRouter(),
-        "/signup": (context) => signUpPage(
-              showLoginPage: () {},
-            ),
-        "/onboarding": (context) => OnboardingScreen(),
-      },
+      // home: Scaffold(
+      //   body: Center(
+      //     child: Image(
+      //       image: AssetImage('assets/person.png'),
+      //     ),
+      //   ),
+      // )
+      home: MapScreen(),
+      //initialRoute: "/home",
+      // routes: {
+      //   "/login": (context) => AuthScreen(),
+      //   "/home": (context) => ScreenRouter(),
+      //   "/signup": (context) => signUpPage(
+      //         showLoginPage: () {},
+      //       ),
+      //   "/onboarding": (context) => OnboardingScreen(),
+      // },
     );
   }
 }
