@@ -97,11 +97,15 @@ class BetterDetailsPage extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        child: Text(
-                          "Description:",
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Description:",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
