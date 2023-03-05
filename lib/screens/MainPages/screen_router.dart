@@ -1,23 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:halalapp/components/Helpers/resturant.dart';
 import 'package:halalapp/constants.dart';
 import 'package:halalapp/screens/MainPages/MapScreen.dart';
 import 'package:halalapp/screens/MainPages/home_page.dart';
 import 'package:halalapp/screens/MainPages/settings_screen.dart';
 
 class ScreenRouter extends StatefulWidget {
-  const ScreenRouter({Key? key}) : super(key: key);
+  const ScreenRouter({
+    Key? key,
+    required this.resturants,
+  }) : super(key: key);
+
+  final List<Resturant> resturants;
 
   @override
   _ScreenRouterState createState() => _ScreenRouterState();
 }
 
 class _ScreenRouterState extends State<ScreenRouter> {
-  List<Widget> pages = [
-    HomeMainPage(),
-    MapScreen(),
-    SettingsScreen(),
-  ];
+  List<Widget> pages = [];
 
   int _selected_page = 0;
 
@@ -25,6 +27,17 @@ class _ScreenRouterState extends State<ScreenRouter> {
     setState(() {
       _selected_page = page_tapped;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    pages = [
+      HomeMainPage(resturants: widget.resturants),
+      MapScreen(resturants: widget.resturants),
+      SettingsScreen(),
+    ];
+    super.initState();
   }
 
   @override
