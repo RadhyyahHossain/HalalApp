@@ -11,7 +11,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
-    print("Signed out");
     Navigator.pushReplacementNamed(this.context, "/login");
   }
 

@@ -54,7 +54,6 @@ class _signUpPageState extends State<signUpPage> {
         );
       }
     } catch (e) {
-      print("--$e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           //behavior: SnackBarBehavior.floating,

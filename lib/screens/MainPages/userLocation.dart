@@ -15,14 +15,14 @@ class _UserLocationState extends State<UserLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("bruh"),
+        title: const Text("Location"),
       ),
       body: Center(
         child: Column(
           children: [
             ElevatedButton(
               onPressed: _determinePosition,
-              child: Text("determine position zesty"),
+              child: Text("determine position"),
             ),
             SizedBox(height: 20),
             Text(_locationData != null
@@ -57,7 +57,6 @@ class _UserLocationState extends State<UserLocation> {
       }
     }
     _locationData = await location.getLocation();
-    print(_locationData);
     setState(() {});
 
     location.enableBackgroundMode(enable: true);

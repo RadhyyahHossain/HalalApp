@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Resturant {
   final String name;
   final String address;
