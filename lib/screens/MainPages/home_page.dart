@@ -1,8 +1,4 @@
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halalapp/components/Helpers/resturant.dart';
 import 'package:halalapp/components/borough_name.dart';
@@ -22,33 +18,9 @@ class HomeMainPage extends StatefulWidget {
 
 class _HomeMainPageState extends State<HomeMainPage> {
   User? user = FirebaseAuth.instance.currentUser;
-//RESTURANT ID
-  //late Future<List<Resturant>> resurants;
-
-  //get info
-  // Future<List<Resturant>> getRes() async {
-  //   List<Resturant> allRes = [];
-  //   await FirebaseFirestore.instance.collection('resv2').get().then(
-  //         (snapshot) => snapshot.docs.forEach((document) {
-  //           Map<String, dynamic> myData = document.data();
-
-  //           allRes.add(Resturant(
-  //             name: myData['name'],
-  //             address: myData['address'],
-  //             price: myData['price'],
-  //             phoneNumber: myData['phone'],
-  //             image: myData['image'],
-  //             description: myData['description'],
-  //             borough: myData['borough'],
-  //           ));
-  //         }),
-  //       );
-  //   return allRes;
-  // }
 
   @override
   void initState() {
-    //resurants = getRes();
     super.initState();
   }
 
@@ -120,11 +92,6 @@ class _HomeMainPageState extends State<HomeMainPage> {
         }),
       ),
     );
-    // AnimatedContainer(
-    //   color: zPrimaryColor,
-    //   curve: Curves.fastLinearToSlowEaseIn,
-    //   duration: const Duration(milliseconds: 500),
-    // );
   }
 }
 
