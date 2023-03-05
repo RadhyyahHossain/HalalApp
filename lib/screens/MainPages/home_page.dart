@@ -12,7 +12,9 @@ import 'package:halalapp/constants.dart';
 //import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 
 class HomeMainPage extends StatefulWidget {
-  HomeMainPage({super.key});
+  HomeMainPage({super.key, required this.resturants});
+
+  final List<Resturant> resturants;
 
   @override
   State<HomeMainPage> createState() => _HomeMainPageState();
@@ -21,30 +23,32 @@ class HomeMainPage extends StatefulWidget {
 class _HomeMainPageState extends State<HomeMainPage> {
   User? user = FirebaseAuth.instance.currentUser;
 //RESTURANT ID
-  List<Resturant> resurants = [];
+  //late Future<List<Resturant>> resurants;
 
   //get info
-  Future getDocs() async {
-    await FirebaseFirestore.instance.collection('resv2').get().then(
-          (snapshot) => snapshot.docs.forEach((document) {
-            Map<String, dynamic> myData = document.data();
+  // Future<List<Resturant>> getRes() async {
+  //   List<Resturant> allRes = [];
+  //   await FirebaseFirestore.instance.collection('resv2').get().then(
+  //         (snapshot) => snapshot.docs.forEach((document) {
+  //           Map<String, dynamic> myData = document.data();
 
-            resurants.add(Resturant(
-              name: myData['name'],
-              address: myData['address'],
-              price: myData['price'],
-              phoneNumber: myData['phone'],
-              image: myData['image'],
-              description: myData['description'],
-              borough: myData['borough'],
-            ));
-          }),
-        );
-  }
+  //           allRes.add(Resturant(
+  //             name: myData['name'],
+  //             address: myData['address'],
+  //             price: myData['price'],
+  //             phoneNumber: myData['phone'],
+  //             image: myData['image'],
+  //             description: myData['description'],
+  //             borough: myData['borough'],
+  //           ));
+  //         }),
+  //       );
+  //   return allRes;
+  // }
 
   @override
   void initState() {
-    getDocs();
+    //resurants = getRes();
     super.initState();
   }
 
@@ -86,22 +90,10 @@ class _HomeMainPageState extends State<HomeMainPage> {
           ),
           BoroughPicker(),
           Expanded(
-            child: ListView.builder(
-              itemCount: resurants.length,
-              itemBuilder: (context, index) {
-                var resBorough = resurants[index].borough;
-                if (resBorough == boroughs[_boroughIndex]) {
-                  return ResturantCard(
-                    res: resurants[index],
-                  );
-                } else {
-                  return SizedBox(
-                    height: 0,
-                    width: 0,
-                  );
-                }
-              },
-            ),
+            child: OurListView(
+                resurants: widget.resturants,
+                boroughs: boroughs,
+                boroughIndex: _boroughIndex),
           ),
         ],
       ),
@@ -133,5 +125,39 @@ class _HomeMainPageState extends State<HomeMainPage> {
     //   curve: Curves.fastLinearToSlowEaseIn,
     //   duration: const Duration(milliseconds: 500),
     // );
+  }
+}
+
+class OurListView extends StatelessWidget {
+  const OurListView({
+    Key? key,
+    required this.resurants,
+    required this.boroughs,
+    required int boroughIndex,
+  })  : _boroughIndex = boroughIndex,
+        super(key: key);
+
+  final List<Resturant> resurants;
+  final List<String> boroughs;
+  final int _boroughIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: resurants.length,
+      itemBuilder: (context, index) {
+        var resBorough = resurants[index].borough;
+        if (resBorough.toUpperCase() == boroughs[_boroughIndex].toUpperCase()) {
+          return ResturantCard(
+            res: resurants[index],
+          );
+        } else {
+          return SizedBox(
+            height: 0,
+            width: 0,
+          );
+        }
+      },
+    );
   }
 }

@@ -7,7 +7,9 @@ import 'package:halalapp/screens/MainPages/better_detailsPage.dart';
 import 'package:location/location.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({super.key});
+  const MapScreen({super.key, required this.resturants});
+
+  final List<Resturant> resturants;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -18,6 +20,7 @@ class _MapScreenState extends State<MapScreen> {
 
   //LatLng? currentLocation;
   late Future<LocationData?> _locationData;
+  Set<Marker> allMarkers = {};
 
   // void getCurrentLocation() async {
   //   Position position = await Geolocator.getCurrentPosition(
@@ -81,60 +84,81 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  Future getMarkers() async {
-    Set<Marker> allMarkers = {};
+  void turnResturantsToMarkers() {
+    List<Resturant> res = widget.resturants;
+    for (var i = 0; i < res.length; i++) {
+      Resturant singleRes = res[i];
 
-    await FirebaseFirestore.instance.collection('resv2').get().then(
-          (snapshot) => snapshot.docs.forEach(
-            (document) {
-              Map<dynamic, dynamic> myData = document.data();
+      double latDouble = double.parse(singleRes.latitude);
+      double longDouble = double.parse(singleRes.longitude);
 
-              var name = myData['name'];
-              var address = myData['address'];
-              var price = myData['price'];
-              var phoneNumber = myData['phone'];
-              var image = myData['image'];
-              var description = myData['description'];
-              var borough = myData['borough'];
-              var latitude1 = myData['latitude'];
-              var longitude1 = myData['longitude'];
-              print(name);
+      //turn [singleRes] into a Marker
+      Marker singleMarker = Marker(
+        markerId: MarkerId(singleRes.name),
+        position: LatLng(latDouble, longDouble),
+        infoWindow: InfoWindow(title: singleRes.name),
+        onTap: () {
+          Navigator.of(context).push(_createRoute(singleRes));
+        },
+      );
 
-              Resturant currentRes = Resturant(
-                name: name,
-                address: address,
-                price: price,
-                phoneNumber: phoneNumber,
-                image: image,
-                description: description,
-                borough: borough,
-              );
-
-              double lat = double.parse(latitude1);
-              double lng = double.parse(longitude1);
-
-              allMarkers.add(Marker(
-                markerId: MarkerId(name),
-                position: LatLng(lat, lng),
-                infoWindow: InfoWindow(title: name),
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute<void>(
-                  //     builder: (BuildContext context) => BetterDetailsPage(
-                  //       currentRes: currentRes,
-                  //     ),
-                  //   ),
-                  // );
-
-                  Navigator.of(context).push(_createRoute(currentRes));
-                },
-              ));
-            },
-          ),
-        );
-    return allMarkers;
+      //put that new marker into  [allMarkers]
+      allMarkers.add(singleMarker);
+    }
   }
+  // Future getMarkers() async {
+  //   Set<Marker> allMarkers = {};
+  //   await FirebaseFirestore.instance.collection('resv2').get().then(
+  //         (snapshot) => snapshot.docs.forEach(
+  //           (document) {
+  //             Map<dynamic, dynamic> myData = document.data();
+
+  //             var name = myData['name'];
+  //             var address = myData['address'];
+  //             var price = myData['price'];
+  //             var phoneNumber = myData['phone'];
+  //             var image = myData['image'];
+  //             var description = myData['description'];
+  //             var borough = myData['borough'];
+  //             var latitude1 = myData['latitude'];
+  //             var longitude1 = myData['longitude'];
+  //             print(name);
+
+  //             Resturant currentRes = Resturant(
+  //               name: name,
+  //               address: address,
+  //               price: price,
+  //               phoneNumber: phoneNumber,
+  //               image: image,
+  //               description: description,
+  //               borough: borough,
+  //             );
+
+  //             double lat = double.parse(latitude1);
+  //             double lng = double.parse(longitude1);
+
+  //             allMarkers.add(Marker(
+  //               markerId: MarkerId(name),
+  //               position: LatLng(lat, lng),
+  //               infoWindow: InfoWindow(title: name),
+  //               onTap: () {
+  //                 // Navigator.push(
+  //                 //   context,
+  //                 //   MaterialPageRoute<void>(
+  //                 //     builder: (BuildContext context) => BetterDetailsPage(
+  //                 //       currentRes: currentRes,
+  //                 //     ),
+  //                 //   ),
+  //                 // );
+
+  //                 Navigator.of(context).push(_createRoute(currentRes));
+  //               },
+  //             ));
+  //           },
+  //         ),
+  //       );
+  //   return allMarkers;
+  // }
 
   void addCustomIcon() {
     BitmapDescriptor.fromAssetImage(
@@ -166,7 +190,7 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
-    getMarkers();
+    turnResturantsToMarkers();
     addCustomIcon();
     _locationData = _determinePosition();
     //requestUserPermission();
@@ -177,40 +201,21 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder(
-      future: _locationData,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          return MakeMapWithLoc(snapshot.data);
-        } else {
-          return Center(
-            child: Center(child: Text("Getting your location...")),
-          );
-        }
-      },
-    )
-        // currentLocation == null
-        //     ? const Center(
-        //         child: Text("loading"),
-        //       )
-        );
-  }
-
-  FutureBuilder<dynamic> MakeMapWithLoc(LocationData locationData) {
-    return FutureBuilder(
-      future: getMarkers(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          return OurGoogleMap(
-              allMarkers: snapshot.data,
-              markerIcon1: markerIcon1,
-              locationData: locationData);
-        } else {
-          return Center(
-            child: Center(child: Text("Getting map...")),
-          );
-        }
-      },
+      body: FutureBuilder(
+        future: _locationData,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return OurGoogleMap(
+                allMarkers: allMarkers,
+                markerIcon1: markerIcon1,
+                locationData: snapshot.data!);
+          } else {
+            return Center(
+              child: Center(child: Text("Getting your location...")),
+            );
+          }
+        },
+      ),
     );
   }
 }

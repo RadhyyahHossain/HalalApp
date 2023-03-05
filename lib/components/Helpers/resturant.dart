@@ -9,6 +9,8 @@ class Resturant {
   final String image;
   final String description;
   final String borough;
+  final String latitude;
+  final String longitude;
 
   Resturant({
     required this.name,
@@ -18,5 +20,7 @@ class Resturant {
     required this.image,
     required this.description,
     required this.borough,
+    required this.latitude,
+    required this.longitude,
   });
 }
