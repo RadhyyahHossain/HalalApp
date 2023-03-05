@@ -25,7 +25,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
 
   //get info
   Future getDocs() async {
-    await FirebaseFirestore.instance.collection('resturants').get().then(
+    await FirebaseFirestore.instance.collection('resv2').get().then(
           (snapshot) => snapshot.docs.forEach((document) {
             Map<String, dynamic> myData = document.data();
 
@@ -33,7 +33,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
               name: myData['name'],
               address: myData['address'],
               price: myData['price'],
-              rating: myData['rating'],
+              phoneNumber: myData['phone'],
               image: myData['image'],
               description: myData['description'],
               borough: myData['borough'],
@@ -55,7 +55,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
     "Brooklyn",
     "Staten Island"
   ];
-  int _boroughIndex = 1;
+  int _boroughIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -86,17 +86,20 @@ class _HomeMainPageState extends State<HomeMainPage> {
           ),
           BoroughPicker(),
           Expanded(
-            child: FutureBuilder(
-              future: getDocs(),
-              builder: (context, snapshot) {
-                return ListView.builder(
-                  itemCount: resurants.length,
-                  itemBuilder: (context, index) {
-                    return ResturantCard(
-                      res: resurants[index],
-                    );
-                  },
-                );
+            child: ListView.builder(
+              itemCount: resurants.length,
+              itemBuilder: (context, index) {
+                var resBorough = resurants[index].borough;
+                if (resBorough == boroughs[_boroughIndex]) {
+                  return ResturantCard(
+                    res: resurants[index],
+                  );
+                } else {
+                  return SizedBox(
+                    height: 0,
+                    width: 0,
+                  );
+                }
               },
             ),
           ),
@@ -107,8 +110,6 @@ class _HomeMainPageState extends State<HomeMainPage> {
 
   Container BoroughPicker() {
     return Container(
-      // duration: Duration(seconds: 1),
-      // curve: Curves.fastOutSlowIn,
       height: 65,
       child: ListView.builder(
         shrinkWrap: true,
@@ -127,5 +128,10 @@ class _HomeMainPageState extends State<HomeMainPage> {
         }),
       ),
     );
+    // AnimatedContainer(
+    //   color: zPrimaryColor,
+    //   curve: Curves.fastLinearToSlowEaseIn,
+    //   duration: const Duration(milliseconds: 500),
+    // );
   }
 }

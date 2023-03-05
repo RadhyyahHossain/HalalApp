@@ -49,6 +49,7 @@ class ResturantCard extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 3 / 1,
           child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
             child: Row(
               children: <Widget>[
                 Padding(
@@ -73,39 +74,43 @@ class ResturantCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 5),
-                Padding(
-                  padding: const EdgeInsets.only(left: 3),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 15),
-                      ),
-                      Text(
-                        res.name,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(top: 15),
                         ),
-                        textAlign: TextAlign.start,
-                      ),
-                      SizedBox(height: 15),
-                      Text(
-                        res.address,
-                        style: TextStyle(
-                          color: Colors.grey[700],
+                        Text(
+                          res.name,
+                          softWrap: true,
+                          overflow: TextOverflow.visible,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.start,
                         ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        res.price,
-                        style: TextStyle(
-                          color: Colors.green,
+                        SizedBox(height: 15),
+                        Text(
+                          res.address,
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                          ),
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          res.price,
+                          style: TextStyle(
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
