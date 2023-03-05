@@ -16,6 +16,8 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   BitmapDescriptor markerIcon1 = BitmapDescriptor.defaultMarker;
 
+  String message = "Getting Location...";
+
   //LatLng? currentLocation;
   late Future<LocationData?> _locationData;
   Set<Marker> allMarkers = {};
@@ -28,7 +30,9 @@ class _MapScreenState extends State<MapScreen> {
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        print("not service enabled");
+        setState(() {
+          message = "Not service enabled";
+        });
         return null;
       }
     }
@@ -37,12 +41,14 @@ class _MapScreenState extends State<MapScreen> {
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted != PermissionStatus.granted) {
-        print("permission not granted");
+        _permissionGranted = await location.requestPermission();
+        setState(() {
+          message = "Permission not granted";
+        });
         return null;
       }
     }
     var locationData = await location.getLocation();
-    setState(() {});
 
     return locationData;
   }
@@ -123,7 +129,13 @@ class _MapScreenState extends State<MapScreen> {
                 locationData: snapshot.data!);
           } else {
             return Center(
-              child: Center(child: Text("Getting your location...")),
+              child: Center(
+                  child: Column(
+                children: [
+                  Text(message),
+                  CircularProgressIndicator(),
+                ],
+              )),
             );
           }
         },

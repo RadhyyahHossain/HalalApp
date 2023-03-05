@@ -33,7 +33,7 @@ class BetterDetailsPage extends StatelessWidget {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 35),
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 20),
@@ -72,23 +72,23 @@ class BetterDetailsPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          currentRes.price,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   padding:
+                      //       EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.green,
+                      //     borderRadius: BorderRadius.circular(20),
+                      //   ),
+                      //   child: Text(
+                      //     currentRes.price,
+                      //     textAlign: TextAlign.center,
+                      //     style: TextStyle(
+                      //       color: Colors.white,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 20,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                   //SizedBox(height: 70),
@@ -112,15 +112,20 @@ class BetterDetailsPage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10),
-                  Container(
-                    child: Expanded(
-                      child: Text(
-                        currentRes.description,
-                        style: TextStyle(
-                          fontSize: 16,
+                  Row(
+                    children: [
+                      Container(
+                        child: Expanded(
+                          child: Text(
+                            currentRes.description,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
