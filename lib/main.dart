@@ -7,7 +7,9 @@ import 'package:halalapp/screens/MainPages/map_screen.dart';
 import 'package:halalapp/screens/Authentication/onboarding_screen.dart';
 import 'package:halalapp/screens/Authentication/signup_page.dart';
 import 'package:halalapp/screens/MainPages/screen_router.dart';
+import 'package:halalapp/screens/MainPages/userLocation.dart';
 import 'screens/Authentication/login_page.dart';
+import 'package:halalapp/screens/MainPages/userLocation.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -35,16 +37,15 @@ class HomeScreen extends StatelessWidget {
       //     ),
       //   ),
       // )
-      home: MapScreen(),
-      //initialRoute: "/home",
-      // routes: {
-      //   "/login": (context) => AuthScreen(),
-      //   "/home": (context) => ScreenRouter(),
-      //   "/signup": (context) => signUpPage(
-      //         showLoginPage: () {},
-      //       ),
-      //   "/onboarding": (context) => OnboardingScreen(),
-      // },
+      initialRoute: "/home",
+      routes: {
+        "/login": (context) => AuthScreen(),
+        "/home": (context) => ScreenRouter(),
+        "/signup": (context) => signUpPage(
+              showLoginPage: () {},
+            ),
+        "/onboarding": (context) => OnboardingScreen(),
+      },
     );
   }
 }

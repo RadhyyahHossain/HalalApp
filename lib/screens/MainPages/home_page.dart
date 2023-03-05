@@ -25,7 +25,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
 
   //get info
   Future getDocs() async {
-    await FirebaseFirestore.instance.collection('resturants').get().then(
+    await FirebaseFirestore.instance.collection('resv2').get().then(
           (snapshot) => snapshot.docs.forEach((document) {
             Map<String, dynamic> myData = document.data();
 

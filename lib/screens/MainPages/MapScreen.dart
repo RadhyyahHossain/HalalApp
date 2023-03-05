@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:halalapp/components/Helpers/resturant.dart';
 import 'package:halalapp/screens/MainPages/better_detailsPage.dart';
+import 'package:location/location.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -15,17 +16,49 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   BitmapDescriptor markerIcon1 = BitmapDescriptor.defaultMarker;
 
-  LatLng? currentLocation;
+  //LatLng? currentLocation;
+  late Future<LocationData?> _locationData;
 
-  void getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+  // void getCurrentLocation() async {
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
 
-    currentLocation = LatLng(position.latitude, position.longitude);
-    // Location location1 = Location();
-    // location1.getLocation().then((location1) {
-    //   currentLocation = location1;
-    // });
+  //   currentLocation = LatLng(position.latitude, position.longitude);
+  //   // Location location1 = Location();
+  //   // location1.getLocation().then((location1) {
+  //   //   currentLocation = location1;
+  //   // });
+  // }
+
+  Future<LocationData?> _determinePosition() async {
+    Location location = Location();
+    print("\nGetting location\n");
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        print("not service enabled");
+        return null;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        print("permission not granted");
+        return null;
+      }
+    }
+    var locationData = await location.getLocation();
+    print("\n\n Got Location \n\n");
+    print(locationData);
+    setState(() {});
+
+    //location.enableBackgroundMode(enable: true);
+    return locationData;
   }
 
   Route _createRoute(Resturant currentRes) {
@@ -115,27 +148,28 @@ class _MapScreenState extends State<MapScreen> {
     }));
   }
 
-  void requestUserPermission() async {
-    await Geolocator.requestPermission()
-        .then(
-      (value) {},
-    )
-        .onError((error, stackTrace) {
-      print("error" + error.toString());
-    });
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+  // void requestUserPermission() async {
+  //   await Geolocator.requestPermission()
+  //       .then(
+  //     (value) {},
+  //   )
+  //       .onError((error, stackTrace) {
+  //     print("error" + error.toString());
+  //   });
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
 
-    setState(() {
-      currentLocation = LatLng(position.latitude, position.longitude);
-    });
-  }
+  //   setState(() {
+  //     currentLocation = LatLng(position.latitude, position.longitude);
+  //   });
+  // }
 
   @override
   void initState() {
     getMarkers();
     addCustomIcon();
-    requestUserPermission();
+    _locationData = _determinePosition();
+    //requestUserPermission();
     //getCurrentLocation();
     super.initState();
   }
@@ -143,25 +177,40 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: currentLocation == null
-          ? const Center(
-              child: Text("loading"),
-            )
-          : FutureBuilder(
-              future: getMarkers(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return OurGoogleMap(
-                    allMarkers: snapshot.data,
-                    markerIcon1: markerIcon1,
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
+        body: FutureBuilder(
+      future: _locationData,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return MakeMapWithLoc(snapshot.data);
+        } else {
+          return Center(
+            child: Center(child: Text("Getting your location...")),
+          );
+        }
+      },
+    )
+        // currentLocation == null
+        //     ? const Center(
+        //         child: Text("loading"),
+        //       )
+        );
+  }
+
+  FutureBuilder<dynamic> MakeMapWithLoc(LocationData locationData) {
+    return FutureBuilder(
+      future: getMarkers(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return OurGoogleMap(
+              allMarkers: snapshot.data,
+              markerIcon1: markerIcon1,
+              locationData: locationData);
+        } else {
+          return Center(
+            child: Center(child: Text("Getting map...")),
+          );
+        }
+      },
     );
   }
 }
@@ -176,24 +225,28 @@ class OurGoogleMap extends StatelessWidget {
     Key? key,
     required this.allMarkers,
     required this.markerIcon1,
+    required this.locationData,
   }) : super(key: key);
 
   final Set<Marker> allMarkers;
   final BitmapDescriptor markerIcon1;
+  final LocationData locationData;
 
   @override
   Widget build(BuildContext context) {
     allMarkers.add(
       Marker(
         markerId: MarkerId("user"),
-        position: LatLng(40.7484, -73.9857),
+        position: LatLng(locationData.latitude!, locationData.longitude!),
         infoWindow: InfoWindow(title: "Your Location"),
         icon: markerIcon1,
       ),
     );
 
     return GoogleMap(
-      initialCameraPosition: _curPosition,
+      initialCameraPosition: CameraPosition(
+          target: LatLng(locationData.latitude!, locationData.longitude!),
+          zoom: 15),
       markers: allMarkers,
     );
   }

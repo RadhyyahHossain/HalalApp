@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:halalapp/constants.dart';
-import 'package:halalapp/screens/MainPages/MapsScreen2.dart';
+import 'package:halalapp/screens/MainPages/MapScreen.dart';
 import 'package:halalapp/screens/MainPages/home_page.dart';
 import 'package:halalapp/screens/MainPages/settings_screen.dart';
 
@@ -15,7 +15,7 @@ class ScreenRouter extends StatefulWidget {
 class _ScreenRouterState extends State<ScreenRouter> {
   List<Widget> pages = [
     HomeMainPage(),
-    MapsScreen(),
+    MapScreen(),
     SettingsScreen(),
   ];
 
