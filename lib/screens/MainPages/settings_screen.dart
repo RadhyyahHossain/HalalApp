@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               SettingsItem(
                 onTapMethod: () {},
-                itemText: "Version 1.0",
+                itemText: "Version 1.0.1",
                 color: Colors.black,
               ),
               SettingsItem(

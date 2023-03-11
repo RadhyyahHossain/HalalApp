@@ -4,6 +4,7 @@ import 'package:halalapp/screens/MainPages/enter_app.dart';
 import 'package:halalapp/screens/Authentication/onboarding_screen.dart';
 import 'package:halalapp/screens/Authentication/signup_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:halalapp/screens/MainPages/get_user_permission.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/login",
+      initialRoute: "/home",
       routes: {
         "/login": (context) => AuthScreen(),
         "/home": (context) => EnterApp(),
