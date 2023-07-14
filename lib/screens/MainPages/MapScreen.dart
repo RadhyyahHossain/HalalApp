@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:halalapp/components/Helpers/resturant.dart';
 import 'package:halalapp/screens/MainPages/better_detailsPage.dart';
 import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart' as geolocator;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key, required this.resturants});
@@ -20,7 +21,42 @@ class _MapScreenState extends State<MapScreen> {
 
   //LatLng? currentLocation;
   late Future<LocationData?> _locationData;
+  late Future<geolocator.Position?> currPosition;
+
   Set<Marker> allMarkers = {};
+
+  Future<geolocator.Position> getLocation() async {
+    bool serviceEnabled;
+    geolocator.LocationPermission permission;
+
+    print("Checking is enagled");
+    // Test if location services are enabled.
+    serviceEnabled = await geolocator.Geolocator.isLocationServiceEnabled();
+    print("Done Checking is enagled");
+
+    print("Getting location...");
+    permission = await geolocator.Geolocator.checkPermission();
+    if (permission == geolocator.LocationPermission.denied) {
+      print("denied");
+      print("requesting...");
+      permission = await geolocator.Geolocator.requestPermission();
+      print("dont requesting...");
+      if (permission == geolocator.LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == geolocator.LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    print("getting loc");
+    geolocator.Position position =
+        await geolocator.Geolocator.getCurrentPosition(
+            desiredAccuracy: geolocator.LocationAccuracy.high);
+
+    return position;
+  }
 
   Future<LocationData?> _determinePosition() async {
     Location location = Location();
@@ -110,7 +146,7 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     turnResturantsToMarkers();
     addCustomIcon();
-    _locationData = _determinePosition();
+    currPosition = getLocation();
     //requestUserPermission();
     //getCurrentLocation();
     super.initState();
@@ -120,7 +156,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: _locationData,
+        future: currPosition,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return OurGoogleMap(
@@ -129,13 +165,13 @@ class _MapScreenState extends State<MapScreen> {
                 locationData: snapshot.data!);
           } else {
             return Center(
-              child: Center(
-                  child: Column(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(message),
                   CircularProgressIndicator(),
                 ],
-              )),
+              ),
             );
           }
         },
@@ -159,22 +195,23 @@ class OurGoogleMap extends StatelessWidget {
 
   final Set<Marker> allMarkers;
   final BitmapDescriptor markerIcon1;
-  final LocationData locationData;
+  final geolocator.Position locationData;
 
   @override
   Widget build(BuildContext context) {
     allMarkers.add(
       Marker(
         markerId: MarkerId("user"),
-        position: LatLng(locationData.latitude!, locationData.longitude!),
+        position: LatLng(locationData.latitude, locationData.longitude),
         infoWindow: InfoWindow(title: "Your Location"),
         icon: markerIcon1,
       ),
     );
 
     return GoogleMap(
+      compassEnabled: false,
       initialCameraPosition: CameraPosition(
-          target: LatLng(locationData.latitude!, locationData.longitude!),
+          target: LatLng(locationData.latitude, locationData.longitude),
           zoom: 15),
       markers: allMarkers,
     );
