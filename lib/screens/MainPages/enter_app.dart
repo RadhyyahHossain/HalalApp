@@ -42,7 +42,7 @@ class _EnterAppState extends State<EnterApp> {
     final String response = await rootBundle.loadString('data.json');
 
     final data = jsonDecode(response);
-
+    print(data);
     List<Resturant> rl = [];
     for (var value in data) {
       var r = Resturant(
@@ -59,7 +59,7 @@ class _EnterAppState extends State<EnterApp> {
       );
       rl.add(r);
     }
-
+    print(rl);
     return rl;
   }
 
