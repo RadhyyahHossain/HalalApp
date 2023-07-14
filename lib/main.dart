@@ -21,14 +21,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/login",
+      initialRoute: "/home",
       routes: {
-        "/login": (context) => AuthScreen(),
+        // "/login": (context) => AuthScreen(),
         "/home": (context) => EnterApp(),
-        "/signup": (context) => signUpPage(
-              showLoginPage: () {},
-            ),
-        "/onboarding": (context) => OnboardingScreen(),
+        // "/signup": (context) => signUpPage(
+        //       showLoginPage: () {},
+        //     ),
+        // "/onboarding": (context) => OnboardingScreen(),
       },
     );
   }

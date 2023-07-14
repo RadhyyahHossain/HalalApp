@@ -63,9 +63,11 @@ class _HomeMainPageState extends State<HomeMainPage> {
           BoroughPicker(),
           Expanded(
             child: OurListView(
-                resurants: widget.resturants,
-                boroughs: boroughs,
-                boroughIndex: _boroughIndex),
+              resurants: widget.resturants,
+              boroughs: boroughs,
+              boroughIndex: _boroughIndex,
+              id: '',
+            ),
           ),
         ],
       ),
@@ -101,9 +103,11 @@ class OurListView extends StatelessWidget {
     required this.resurants,
     required this.boroughs,
     required int boroughIndex,
+    required this.id,
   })  : _boroughIndex = boroughIndex,
         super(key: key);
 
+  final String id;
   final List<Resturant> resurants;
   final List<String> boroughs;
   final int _boroughIndex;
@@ -116,6 +120,7 @@ class OurListView extends StatelessWidget {
         var resBorough = resurants[index].borough;
         if (resBorough.toUpperCase() == boroughs[_boroughIndex].toUpperCase()) {
           return ResturantCard(
+            //key: Key(resurants[index].id),
             res: resurants[index],
           );
         } else {
