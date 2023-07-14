@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Coney Island House of Wings",
+        "address": "3100 Ocean Pkwy, Brooklyn, NY 11235",
+        "price": "$$",
+        "phoneNumber": "(347) 462-3379",
+        "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+        "description": "some description",
+        "borough": "BROOKLYN",
+        "latitude": "40.5762199",
+        "longitude": "-73.9694452",
+        "provider": [
+            "muslim foodies"
+        ]
+    }
+]

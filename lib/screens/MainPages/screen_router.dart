@@ -43,19 +43,19 @@ class _ScreenRouterState extends State<ScreenRouter> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_selected_page],
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: "List"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.location_on), label: "Search"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: "Settings"),
-        ],
-        currentIndex: _selected_page,
-        selectedItemColor: kPrimaryColor,
-        onTap: changePage,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   elevation: 0,
+      //   items: [
+      //     BottomNavigationBarItem(icon: Icon(Icons.list), label: "List"),
+      //     //BottomNavigationBarItem(
+      //     //icon: Icon(Icons.location_on), label: "Search"),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.settings), label: "Settings"),
+      //   ],
+      //   currentIndex: _selected_page,
+      //   selectedItemColor: kPrimaryColor,
+      //   onTap: changePage,
+      // ),
     );
   }
 }

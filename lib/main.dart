@@ -24,12 +24,12 @@ class HomeScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: "/home",
       routes: {
-        "/login": (context) => AuthScreen(),
+        // "/login": (context) => AuthScreen(),
         "/home": (context) => EnterApp(),
-        "/signup": (context) => signUpPage(
-              showLoginPage: () {},
-            ),
-        "/onboarding": (context) => OnboardingScreen(),
+        // "/signup": (context) => signUpPage(
+        //       showLoginPage: () {},
+        //     ),
+        // "/onboarding": (context) => OnboardingScreen(),
       },
     );
   }

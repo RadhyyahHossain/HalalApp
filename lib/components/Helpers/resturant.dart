@@ -8,6 +8,7 @@ class Resturant {
   final String borough;
   final String latitude;
   final String longitude;
+  //List<dynamic> provider = [""];
 
   Resturant({
     required this.name,
@@ -19,5 +20,23 @@ class Resturant {
     required this.borough,
     required this.latitude,
     required this.longitude,
+    //required this.provider,
   });
+
+  static fromJson(Map<String, dynamic> json) {
+    print("inside fromJson");
+    print(json);
+    return Resturant(
+      name: json['name'] ?? '',
+      address: json['address'] ?? '',
+      price: json['price'] ?? '',
+      phoneNumber: json['phoneNumber'] ?? '',
+      image: json['image'] ?? '',
+      description: json['description'] ?? '',
+      borough: json['borough'] ?? '',
+      latitude: json['latitude'] ?? '',
+      longitude: json['longitude'] ?? '',
+      //provider: [],
+    );
+  }
 }
